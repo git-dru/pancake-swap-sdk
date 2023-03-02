@@ -37,7 +37,7 @@ var Rounding;
 var FACTORY_ADDRESS = '0xaA2a96D0092c8700478924247fdeC47a1f271E45';
 var FACTORY_ADDRESS_MAP = (_FACTORY_ADDRESS_MAP = {}, _FACTORY_ADDRESS_MAP[ChainId.MAINNET] = FACTORY_ADDRESS, _FACTORY_ADDRESS_MAP[ChainId.TESTNET] = '0x6725f303b657a9451d8ba641348b6761a6cc7a17', _FACTORY_ADDRESS_MAP);
 var INIT_CODE_HASH = '0xf0a628adef0c1251a4e8c2bc3a07d33156825a0da2bc990825cff3c066626270';
-var INIT_CODE_HASH_MAP = (_INIT_CODE_HASH_MAP = {}, _INIT_CODE_HASH_MAP[ChainId.MAINNET] = INIT_CODE_HASH, _INIT_CODE_HASH_MAP[ChainId.TESTNET] = '0xd0d4c4cd0848c93cb4fd1f498d7013ee6bfb25783ea21593d5834f5d250ece66', _INIT_CODE_HASH_MAP);
+var INIT_CODE_HASH_MAP = (_INIT_CODE_HASH_MAP = {}, _INIT_CODE_HASH_MAP[ChainId.MAINNET] = INIT_CODE_HASH, _INIT_CODE_HASH_MAP[ChainId.TESTNET] = '0xf0a628adef0c1251a4e8c2bc3a07d33156825a0da2bc990825cff3c066626270', _INIT_CODE_HASH_MAP);
 var MINIMUM_LIQUIDITY = /*#__PURE__*/JSBI.BigInt(1000); // exports for internal consumption
 
 var ZERO = /*#__PURE__*/JSBI.BigInt(0);
@@ -120,7 +120,7 @@ function _isNativeReflectConstruct() {
   if (typeof Proxy === "function") return true;
 
   try {
-    Date.prototype.toString.call(Reflect.construct(Date, [], function () { }));
+    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
     return true;
   } catch (e) {
     return false;
@@ -286,7 +286,7 @@ function validateAndParseAddress(address) {
     process.env.NODE_ENV !== "production" ? warning(address === checksummedAddress, address + " is not checksummed.") : void 0;
     return checksummedAddress;
   } catch (error) {
-    process.env.NODE_ENV !== "production" ? invariant(false, address + " is not a valid address.") : invariant(false);
+     process.env.NODE_ENV !== "production" ? invariant(false, address + " is not a valid address.") : invariant(false) ;
   }
 }
 function parseBigintIsh(bigintIsh) {
@@ -330,7 +330,7 @@ function sortedInsert(items, add, maxSize, comparator) {
     }
 
     var lo = 0,
-      hi = items.length;
+        hi = items.length;
 
     while (lo < hi) {
       var mid = lo + hi >>> 1;
@@ -354,18 +354,18 @@ function sortedInsert(items, add, maxSize, comparator) {
  */
 
 var Currency =
-  /**
-   * Constructs an instance of the base class `Currency`. The only instance of the base class `Currency` is `Currency.ETHER`.
-   * @param decimals decimals of the currency
-   * @param symbol symbol of the currency
-   * @param name of the currency
-   */
-  function Currency(decimals, symbol, name) {
-    validateSolidityTypeInstance(JSBI.BigInt(decimals), SolidityType.uint8);
-    this.decimals = decimals;
-    this.symbol = symbol;
-    this.name = name;
-  };
+/**
+ * Constructs an instance of the base class `Currency`. The only instance of the base class `Currency` is `Currency.ETHER`.
+ * @param decimals decimals of the currency
+ * @param symbol symbol of the currency
+ * @param name of the currency
+ */
+function Currency(decimals, symbol, name) {
+  validateSolidityTypeInstance(JSBI.BigInt(decimals), SolidityType.uint8);
+  this.decimals = decimals;
+  this.symbol = symbol;
+  this.name = name;
+};
 /**
  * The only instance of the base class `Currency`.
  */
@@ -406,13 +406,13 @@ var Token = /*#__PURE__*/function (_Currency) {
 
     return this.chainId === other.chainId && this.address === other.address;
   }
-    /**
-     * Returns true if the address of this token sorts before the address of the other token
-     * @param other other token to compare
-     * @throws if the tokens have the same address
-     * @throws if the tokens are on different chains
-     */
-    ;
+  /**
+   * Returns true if the address of this token sorts before the address of the other token
+   * @param other other token to compare
+   * @throws if the tokens have the same address
+   * @throws if the tokens are on different chains
+   */
+  ;
 
   _proto.sortsBefore = function sortsBefore(other) {
     !(this.chainId === other.chainId) ? process.env.NODE_ENV !== "production" ? invariant(false, 'CHAIN_IDS') : invariant(false) : void 0;
@@ -544,10 +544,10 @@ var Fraction = /*#__PURE__*/function () {
     Big.RM = toFixedRounding[rounding];
     return new Big(this.numerator.toString()).div(this.denominator.toString()).toFormat(decimalPlaces, format);
   }
-    /**
-     * Helper method for converting any super class back to a fraction
-     */
-    ;
+  /**
+   * Helper method for converting any super class back to a fraction
+   */
+  ;
 
   _createClass(Fraction, [{
     key: "quotient",
@@ -698,8 +698,8 @@ var Price = /*#__PURE__*/function (_Fraction) {
 
     for (var _iterator = _createForOfIteratorHelperLoose(route.pairs.entries()), _step; !(_step = _iterator()).done;) {
       var _step$value = _step.value,
-        i = _step$value[0],
-        pair = _step$value[1];
+          i = _step$value[0],
+          pair = _step$value[1];
       prices.push(route.path[i].equals(pair.token0) ? new Price(pair.reserve0.currency, pair.reserve1.currency, pair.reserve0.raw, pair.reserve1.raw) : new Price(pair.reserve1.currency, pair.reserve0.currency, pair.reserve1.raw, pair.reserve0.raw));
     }
 
@@ -721,7 +721,7 @@ var Price = /*#__PURE__*/function (_Fraction) {
 
     return new Price(this.baseCurrency, other.quoteCurrency, fraction.denominator, fraction.numerator);
   } // performs floor division on overflow
-    ;
+  ;
 
   _proto.quote = function quote(currencyAmount) {
     !currencyEquals(currencyAmount.currency, this.baseCurrency) ? process.env.NODE_ENV !== "production" ? invariant(false, 'TOKEN') : invariant(false) : void 0;
@@ -773,7 +773,7 @@ var composeKey = function composeKey(token0, token1) {
 var Pair = /*#__PURE__*/function () {
   function Pair(tokenAmountA, tokenAmountB) {
     var tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
-      ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
+    ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
     this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'Cake-LP', 'Pancake LPs');
     this.tokenAmounts = tokenAmounts;
   }
@@ -782,8 +782,8 @@ var Pair = /*#__PURE__*/function () {
     var _PAIR_ADDRESS_CACHE;
 
     var _ref = tokenA.sortsBefore(tokenB) ? [tokenA, tokenB] : [tokenB, tokenA],
-      token0 = _ref[0],
-      token1 = _ref[1]; // does safety checks
+        token0 = _ref[0],
+        token1 = _ref[1]; // does safety checks
 
 
     var key = composeKey(token0, token1);
@@ -796,21 +796,21 @@ var Pair = /*#__PURE__*/function () {
 
     return PAIR_ADDRESS_CACHE[key];
   }
-    /**
-     * Returns true if the token is either token0 or token1
-     * @param token to check
-     */
-    ;
+  /**
+   * Returns true if the token is either token0 or token1
+   * @param token to check
+   */
+  ;
 
   var _proto = Pair.prototype;
 
   _proto.involvesToken = function involvesToken(token) {
     return token.equals(this.token0) || token.equals(this.token1);
   }
-    /**
-     * Returns the current mid price of the pair in terms of token0, i.e. the ratio of reserve1 to reserve0
-     */
-    ;
+  /**
+   * Returns the current mid price of the pair in terms of token0, i.e. the ratio of reserve1 to reserve0
+   */
+  ;
 
   /**
    * Return the price of the given token in terms of the other token in the pair.
@@ -820,10 +820,10 @@ var Pair = /*#__PURE__*/function () {
     !this.involvesToken(token) ? process.env.NODE_ENV !== "production" ? invariant(false, 'TOKEN') : invariant(false) : void 0;
     return token.equals(this.token0) ? this.token0Price : this.token1Price;
   }
-    /**
-     * Returns the chain ID of the tokens in the pair.
-     */
-    ;
+  /**
+   * Returns the chain ID of the tokens in the pair.
+   */
+  ;
 
   _proto.reserveOf = function reserveOf(token) {
     !this.involvesToken(token) ? process.env.NODE_ENV !== "production" ? invariant(false, 'TOKEN') : invariant(false) : void 0;
@@ -869,7 +869,7 @@ var Pair = /*#__PURE__*/function () {
   _proto.getLiquidityMinted = function getLiquidityMinted(totalSupply, tokenAmountA, tokenAmountB) {
     !totalSupply.token.equals(this.liquidityToken) ? process.env.NODE_ENV !== "production" ? invariant(false, 'LIQUIDITY') : invariant(false) : void 0;
     var tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
-      ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
+    ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
     !(tokenAmounts[0].token.equals(this.token0) && tokenAmounts[1].token.equals(this.token1)) ? process.env.NODE_ENV !== "production" ? invariant(false, 'TOKEN') : invariant(false) : void 0;
     var liquidity;
 
@@ -981,8 +981,8 @@ var Route = /*#__PURE__*/function () {
 
     for (var _iterator = _createForOfIteratorHelperLoose(pairs.entries()), _step; !(_step = _iterator()).done;) {
       var _step$value = _step.value,
-        i = _step$value[0],
-        pair = _step$value[1];
+          i = _step$value[0],
+          pair = _step$value[1];
       var currentInput = path[i];
       !(currentInput.equals(pair.token0) || currentInput.equals(pair.token1)) ? process.env.NODE_ENV !== "production" ? invariant(false, 'PATH') : invariant(false) : void 0;
 
@@ -1106,13 +1106,13 @@ function tradeComparator(a, b) {
 function wrappedAmount(currencyAmount, chainId) {
   if (currencyAmount instanceof TokenAmount) return currencyAmount;
   if (currencyAmount.currency === ETHER) return new TokenAmount(WETH[chainId], currencyAmount.raw);
-  process.env.NODE_ENV !== "production" ? invariant(false, 'CURRENCY') : invariant(false);
+   process.env.NODE_ENV !== "production" ? invariant(false, 'CURRENCY') : invariant(false) ;
 }
 
 function wrappedCurrency(currency, chainId) {
   if (currency instanceof Token) return currency;
   if (currency === ETHER) return WETH[chainId];
-  process.env.NODE_ENV !== "production" ? invariant(false, 'CURRENCY') : invariant(false);
+   process.env.NODE_ENV !== "production" ? invariant(false, 'CURRENCY') : invariant(false) ;
 }
 /**
  * Represents a trade executed against a list of pairs.
@@ -1133,8 +1133,8 @@ var Trade = /*#__PURE__*/function () {
         var pair = route.pairs[i];
 
         var _pair$getOutputAmount = pair.getOutputAmount(amounts[i]),
-          outputAmount = _pair$getOutputAmount[0],
-          nextPair = _pair$getOutputAmount[1];
+            outputAmount = _pair$getOutputAmount[0],
+            nextPair = _pair$getOutputAmount[1];
 
         amounts[i + 1] = outputAmount;
         nextPairs[i] = nextPair;
@@ -1147,8 +1147,8 @@ var Trade = /*#__PURE__*/function () {
         var _pair = route.pairs[_i - 1];
 
         var _pair$getInputAmount = _pair.getInputAmount(amounts[_i]),
-          inputAmount = _pair$getInputAmount[0],
-          _nextPair = _pair$getInputAmount[1];
+            inputAmount = _pair$getInputAmount[0],
+            _nextPair = _pair$getInputAmount[1];
 
         amounts[_i - 1] = inputAmount;
         nextPairs[_i - 1] = _nextPair;
@@ -1173,21 +1173,21 @@ var Trade = /*#__PURE__*/function () {
   Trade.exactIn = function exactIn(route, amountIn) {
     return new Trade(route, amountIn, TradeType.EXACT_INPUT);
   }
-    /**
-     * Constructs an exact out trade with the given amount out and route
-     * @param route route of the exact out trade
-     * @param amountOut the amount returned by the trade
-     */
-    ;
+  /**
+   * Constructs an exact out trade with the given amount out and route
+   * @param route route of the exact out trade
+   * @param amountOut the amount returned by the trade
+   */
+  ;
 
   Trade.exactOut = function exactOut(route, amountOut) {
     return new Trade(route, amountOut, TradeType.EXACT_OUTPUT);
   }
-    /**
-     * Get the minimum amount that must be received from this trade for the given slippage tolerance
-     * @param slippageTolerance tolerance of unfavorable slippage from the execution price of this trade
-     */
-    ;
+  /**
+   * Get the minimum amount that must be received from this trade for the given slippage tolerance
+   * @param slippageTolerance tolerance of unfavorable slippage from the execution price of this trade
+   */
+  ;
 
   var _proto = Trade.prototype;
 
@@ -1201,11 +1201,11 @@ var Trade = /*#__PURE__*/function () {
       return this.outputAmount instanceof TokenAmount ? new TokenAmount(this.outputAmount.token, slippageAdjustedAmountOut) : CurrencyAmount.ether(slippageAdjustedAmountOut);
     }
   }
-    /**
-     * Get the maximum amount in that can be spent via this trade for the given slippage tolerance
-     * @param slippageTolerance tolerance of unfavorable slippage from the execution price of this trade
-     */
-    ;
+  /**
+   * Get the maximum amount in that can be spent via this trade for the given slippage tolerance
+   * @param slippageTolerance tolerance of unfavorable slippage from the execution price of this trade
+   */
+  ;
 
   _proto.maximumAmountIn = function maximumAmountIn(slippageTolerance) {
     !!slippageTolerance.lessThan(ZERO) ? process.env.NODE_ENV !== "production" ? invariant(false, 'SLIPPAGE_TOLERANCE') : invariant(false) : void 0;
@@ -1217,29 +1217,29 @@ var Trade = /*#__PURE__*/function () {
       return this.inputAmount instanceof TokenAmount ? new TokenAmount(this.inputAmount.token, slippageAdjustedAmountIn) : CurrencyAmount.ether(slippageAdjustedAmountIn);
     }
   }
-    /**
-     * Given a list of pairs, and a fixed amount in, returns the top `maxNumResults` trades that go from an input token
-     * amount to an output token, making at most `maxHops` hops.
-     * Note this does not consider aggregation, as routes are linear. It's possible a better route exists by splitting
-     * the amount in among multiple routes.
-     * @param pairs the pairs to consider in finding the best trade
-     * @param currencyAmountIn exact amount of input currency to spend
-     * @param currencyOut the desired currency out
-     * @param maxNumResults maximum number of results to return
-     * @param maxHops maximum number of hops a returned trade can make, e.g. 1 hop goes through a single pair
-     * @param currentPairs used in recursion; the current list of pairs
-     * @param originalAmountIn used in recursion; the original value of the currencyAmountIn parameter
-     * @param bestTrades used in recursion; the current list of best trades
-     */
-    ;
+  /**
+   * Given a list of pairs, and a fixed amount in, returns the top `maxNumResults` trades that go from an input token
+   * amount to an output token, making at most `maxHops` hops.
+   * Note this does not consider aggregation, as routes are linear. It's possible a better route exists by splitting
+   * the amount in among multiple routes.
+   * @param pairs the pairs to consider in finding the best trade
+   * @param currencyAmountIn exact amount of input currency to spend
+   * @param currencyOut the desired currency out
+   * @param maxNumResults maximum number of results to return
+   * @param maxHops maximum number of hops a returned trade can make, e.g. 1 hop goes through a single pair
+   * @param currentPairs used in recursion; the current list of pairs
+   * @param originalAmountIn used in recursion; the original value of the currencyAmountIn parameter
+   * @param bestTrades used in recursion; the current list of best trades
+   */
+  ;
 
   Trade.bestTradeExactIn = function bestTradeExactIn(pairs, currencyAmountIn, currencyOut, _temp, // used in recursion.
-    currentPairs, originalAmountIn, bestTrades) {
+  currentPairs, originalAmountIn, bestTrades) {
     var _ref = _temp === void 0 ? {} : _temp,
-      _ref$maxNumResults = _ref.maxNumResults,
-      maxNumResults = _ref$maxNumResults === void 0 ? 3 : _ref$maxNumResults,
-      _ref$maxHops = _ref.maxHops,
-      maxHops = _ref$maxHops === void 0 ? 3 : _ref$maxHops;
+        _ref$maxNumResults = _ref.maxNumResults,
+        maxNumResults = _ref$maxNumResults === void 0 ? 3 : _ref$maxNumResults,
+        _ref$maxHops = _ref.maxHops,
+        maxHops = _ref$maxHops === void 0 ? 3 : _ref$maxHops;
 
     if (currentPairs === void 0) {
       currentPairs = [];
@@ -1298,30 +1298,30 @@ var Trade = /*#__PURE__*/function () {
 
     return bestTrades;
   }
-    /**
-     * similar to the above method but instead targets a fixed output amount
-     * given a list of pairs, and a fixed amount out, returns the top `maxNumResults` trades that go from an input token
-     * to an output token amount, making at most `maxHops` hops
-     * note this does not consider aggregation, as routes are linear. it's possible a better route exists by splitting
-     * the amount in among multiple routes.
-     * @param pairs the pairs to consider in finding the best trade
-     * @param currencyIn the currency to spend
-     * @param currencyAmountOut the exact amount of currency out
-     * @param maxNumResults maximum number of results to return
-     * @param maxHops maximum number of hops a returned trade can make, e.g. 1 hop goes through a single pair
-     * @param currentPairs used in recursion; the current list of pairs
-     * @param originalAmountOut used in recursion; the original value of the currencyAmountOut parameter
-     * @param bestTrades used in recursion; the current list of best trades
-     */
-    ;
+  /**
+   * similar to the above method but instead targets a fixed output amount
+   * given a list of pairs, and a fixed amount out, returns the top `maxNumResults` trades that go from an input token
+   * to an output token amount, making at most `maxHops` hops
+   * note this does not consider aggregation, as routes are linear. it's possible a better route exists by splitting
+   * the amount in among multiple routes.
+   * @param pairs the pairs to consider in finding the best trade
+   * @param currencyIn the currency to spend
+   * @param currencyAmountOut the exact amount of currency out
+   * @param maxNumResults maximum number of results to return
+   * @param maxHops maximum number of hops a returned trade can make, e.g. 1 hop goes through a single pair
+   * @param currentPairs used in recursion; the current list of pairs
+   * @param originalAmountOut used in recursion; the original value of the currencyAmountOut parameter
+   * @param bestTrades used in recursion; the current list of best trades
+   */
+  ;
 
   Trade.bestTradeExactOut = function bestTradeExactOut(pairs, currencyIn, currencyAmountOut, _temp2, // used in recursion.
-    currentPairs, originalAmountOut, bestTrades) {
+  currentPairs, originalAmountOut, bestTrades) {
     var _ref2 = _temp2 === void 0 ? {} : _temp2,
-      _ref2$maxNumResults = _ref2.maxNumResults,
-      maxNumResults = _ref2$maxNumResults === void 0 ? 3 : _ref2$maxNumResults,
-      _ref2$maxHops = _ref2.maxHops,
-      maxHops = _ref2$maxHops === void 0 ? 3 : _ref2$maxHops;
+        _ref2$maxNumResults = _ref2.maxNumResults,
+        maxNumResults = _ref2$maxNumResults === void 0 ? 3 : _ref2$maxNumResults,
+        _ref2$maxHops = _ref2.maxHops,
+        maxHops = _ref2$maxHops === void 0 ? 3 : _ref2$maxHops;
 
     if (currentPairs === void 0) {
       currentPairs = [];
@@ -1397,7 +1397,7 @@ var Router = /*#__PURE__*/function () {
   /**
    * Cannot be constructed.
    */
-  function Router() { }
+  function Router() {}
   /**
    * Produces the on-chain method name to call and the hex encoded parameters to pass as arguments for a given trade.
    * @param trade to produce call parameters for
@@ -1478,768 +1478,768 @@ var Router = /*#__PURE__*/function () {
 }();
 
 var IPancakePair = [
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "spender",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256"
-      }
-    ],
-    name: "Approval",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount0",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount1",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address"
-      }
-    ],
-    name: "Burn",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount0",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount1",
-        type: "uint256"
-      }
-    ],
-    name: "Mint",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount0In",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount1In",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount0Out",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount1Out",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address"
-      }
-    ],
-    name: "Swap",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint112",
-        name: "reserve0",
-        type: "uint112"
-      },
-      {
-        indexed: false,
-        internalType: "uint112",
-        name: "reserve1",
-        type: "uint112"
-      }
-    ],
-    name: "Sync",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256"
-      }
-    ],
-    name: "Transfer",
-    type: "event"
-  },
-  {
-    constant: true,
-    inputs: [
-    ],
-    name: "DOMAIN_SEPARATOR",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-    ],
-    name: "MINIMUM_LIQUIDITY",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    payable: false,
-    stateMutability: "pure",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-    ],
-    name: "PERMIT_TYPEHASH",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32"
-      }
-    ],
-    payable: false,
-    stateMutability: "pure",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        internalType: "address",
-        name: "owner",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address"
-      }
-    ],
-    name: "allowance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "value",
-        type: "uint256"
-      }
-    ],
-    name: "approve",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool"
-      }
-    ],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        internalType: "address",
-        name: "owner",
-        type: "address"
-      }
-    ],
-    name: "balanceOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        internalType: "address",
-        name: "to",
-        type: "address"
-      }
-    ],
-    name: "burn",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "amount0",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "amount1",
-        type: "uint256"
-      }
-    ],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-    ],
-    name: "decimals",
-    outputs: [
-      {
-        internalType: "uint8",
-        name: "",
-        type: "uint8"
-      }
-    ],
-    payable: false,
-    stateMutability: "pure",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-    ],
-    name: "factory",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-    ],
-    name: "getReserves",
-    outputs: [
-      {
-        internalType: "uint112",
-        name: "reserve0",
-        type: "uint112"
-      },
-      {
-        internalType: "uint112",
-        name: "reserve1",
-        type: "uint112"
-      },
-      {
-        internalType: "uint32",
-        name: "blockTimestampLast",
-        type: "uint32"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "",
-        type: "address"
-      }
-    ],
-    name: "initialize",
-    outputs: [
-    ],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-    ],
-    name: "kLast",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        internalType: "address",
-        name: "to",
-        type: "address"
-      }
-    ],
-    name: "mint",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "liquidity",
-        type: "uint256"
-      }
-    ],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-    ],
-    name: "name",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string"
-      }
-    ],
-    payable: false,
-    stateMutability: "pure",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        internalType: "address",
-        name: "owner",
-        type: "address"
-      }
-    ],
-    name: "nonces",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        internalType: "address",
-        name: "owner",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "value",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "deadline",
-        type: "uint256"
-      },
-      {
-        internalType: "uint8",
-        name: "v",
-        type: "uint8"
-      },
-      {
-        internalType: "bytes32",
-        name: "r",
-        type: "bytes32"
-      },
-      {
-        internalType: "bytes32",
-        name: "s",
-        type: "bytes32"
-      }
-    ],
-    name: "permit",
-    outputs: [
-    ],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-    ],
-    name: "price0CumulativeLast",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-    ],
-    name: "price1CumulativeLast",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        internalType: "address",
-        name: "to",
-        type: "address"
-      }
-    ],
-    name: "skim",
-    outputs: [
-    ],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "amount0Out",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "amount1Out",
-        type: "uint256"
-      },
-      {
-        internalType: "address",
-        name: "to",
-        type: "address"
-      },
-      {
-        internalType: "bytes",
-        name: "data",
-        type: "bytes"
-      }
-    ],
-    name: "swap",
-    outputs: [
-    ],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-    ],
-    name: "symbol",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string"
-      }
-    ],
-    payable: false,
-    stateMutability: "pure",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-    ],
-    name: "sync",
-    outputs: [
-    ],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-    ],
-    name: "token0",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-    ],
-    name: "token1",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-    ],
-    name: "totalSupply",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        internalType: "address",
-        name: "to",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "value",
-        type: "uint256"
-      }
-    ],
-    name: "transfer",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool"
-      }
-    ],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        internalType: "address",
-        name: "from",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "to",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "value",
-        type: "uint256"
-      }
-    ],
-    name: "transferFrom",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool"
-      }
-    ],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  }
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "owner",
+				type: "address"
+			},
+			{
+				indexed: true,
+				internalType: "address",
+				name: "spender",
+				type: "address"
+			},
+			{
+				indexed: false,
+				internalType: "uint256",
+				name: "value",
+				type: "uint256"
+			}
+		],
+		name: "Approval",
+		type: "event"
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "sender",
+				type: "address"
+			},
+			{
+				indexed: false,
+				internalType: "uint256",
+				name: "amount0",
+				type: "uint256"
+			},
+			{
+				indexed: false,
+				internalType: "uint256",
+				name: "amount1",
+				type: "uint256"
+			},
+			{
+				indexed: true,
+				internalType: "address",
+				name: "to",
+				type: "address"
+			}
+		],
+		name: "Burn",
+		type: "event"
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "sender",
+				type: "address"
+			},
+			{
+				indexed: false,
+				internalType: "uint256",
+				name: "amount0",
+				type: "uint256"
+			},
+			{
+				indexed: false,
+				internalType: "uint256",
+				name: "amount1",
+				type: "uint256"
+			}
+		],
+		name: "Mint",
+		type: "event"
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "sender",
+				type: "address"
+			},
+			{
+				indexed: false,
+				internalType: "uint256",
+				name: "amount0In",
+				type: "uint256"
+			},
+			{
+				indexed: false,
+				internalType: "uint256",
+				name: "amount1In",
+				type: "uint256"
+			},
+			{
+				indexed: false,
+				internalType: "uint256",
+				name: "amount0Out",
+				type: "uint256"
+			},
+			{
+				indexed: false,
+				internalType: "uint256",
+				name: "amount1Out",
+				type: "uint256"
+			},
+			{
+				indexed: true,
+				internalType: "address",
+				name: "to",
+				type: "address"
+			}
+		],
+		name: "Swap",
+		type: "event"
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: false,
+				internalType: "uint112",
+				name: "reserve0",
+				type: "uint112"
+			},
+			{
+				indexed: false,
+				internalType: "uint112",
+				name: "reserve1",
+				type: "uint112"
+			}
+		],
+		name: "Sync",
+		type: "event"
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: "address",
+				name: "from",
+				type: "address"
+			},
+			{
+				indexed: true,
+				internalType: "address",
+				name: "to",
+				type: "address"
+			},
+			{
+				indexed: false,
+				internalType: "uint256",
+				name: "value",
+				type: "uint256"
+			}
+		],
+		name: "Transfer",
+		type: "event"
+	},
+	{
+		constant: true,
+		inputs: [
+		],
+		name: "DOMAIN_SEPARATOR",
+		outputs: [
+			{
+				internalType: "bytes32",
+				name: "",
+				type: "bytes32"
+			}
+		],
+		payable: false,
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+		],
+		name: "MINIMUM_LIQUIDITY",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		payable: false,
+		stateMutability: "pure",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+		],
+		name: "PERMIT_TYPEHASH",
+		outputs: [
+			{
+				internalType: "bytes32",
+				name: "",
+				type: "bytes32"
+			}
+		],
+		payable: false,
+		stateMutability: "pure",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: "address",
+				name: "owner",
+				type: "address"
+			},
+			{
+				internalType: "address",
+				name: "spender",
+				type: "address"
+			}
+		],
+		name: "allowance",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		payable: false,
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: "address",
+				name: "spender",
+				type: "address"
+			},
+			{
+				internalType: "uint256",
+				name: "value",
+				type: "uint256"
+			}
+		],
+		name: "approve",
+		outputs: [
+			{
+				internalType: "bool",
+				name: "",
+				type: "bool"
+			}
+		],
+		payable: false,
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: "address",
+				name: "owner",
+				type: "address"
+			}
+		],
+		name: "balanceOf",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		payable: false,
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: "address",
+				name: "to",
+				type: "address"
+			}
+		],
+		name: "burn",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "amount0",
+				type: "uint256"
+			},
+			{
+				internalType: "uint256",
+				name: "amount1",
+				type: "uint256"
+			}
+		],
+		payable: false,
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+		],
+		name: "decimals",
+		outputs: [
+			{
+				internalType: "uint8",
+				name: "",
+				type: "uint8"
+			}
+		],
+		payable: false,
+		stateMutability: "pure",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+		],
+		name: "factory",
+		outputs: [
+			{
+				internalType: "address",
+				name: "",
+				type: "address"
+			}
+		],
+		payable: false,
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+		],
+		name: "getReserves",
+		outputs: [
+			{
+				internalType: "uint112",
+				name: "reserve0",
+				type: "uint112"
+			},
+			{
+				internalType: "uint112",
+				name: "reserve1",
+				type: "uint112"
+			},
+			{
+				internalType: "uint32",
+				name: "blockTimestampLast",
+				type: "uint32"
+			}
+		],
+		payable: false,
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: "address",
+				name: "",
+				type: "address"
+			},
+			{
+				internalType: "address",
+				name: "",
+				type: "address"
+			}
+		],
+		name: "initialize",
+		outputs: [
+		],
+		payable: false,
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+		],
+		name: "kLast",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		payable: false,
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: "address",
+				name: "to",
+				type: "address"
+			}
+		],
+		name: "mint",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "liquidity",
+				type: "uint256"
+			}
+		],
+		payable: false,
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+		],
+		name: "name",
+		outputs: [
+			{
+				internalType: "string",
+				name: "",
+				type: "string"
+			}
+		],
+		payable: false,
+		stateMutability: "pure",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: "address",
+				name: "owner",
+				type: "address"
+			}
+		],
+		name: "nonces",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		payable: false,
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: "address",
+				name: "owner",
+				type: "address"
+			},
+			{
+				internalType: "address",
+				name: "spender",
+				type: "address"
+			},
+			{
+				internalType: "uint256",
+				name: "value",
+				type: "uint256"
+			},
+			{
+				internalType: "uint256",
+				name: "deadline",
+				type: "uint256"
+			},
+			{
+				internalType: "uint8",
+				name: "v",
+				type: "uint8"
+			},
+			{
+				internalType: "bytes32",
+				name: "r",
+				type: "bytes32"
+			},
+			{
+				internalType: "bytes32",
+				name: "s",
+				type: "bytes32"
+			}
+		],
+		name: "permit",
+		outputs: [
+		],
+		payable: false,
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+		],
+		name: "price0CumulativeLast",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		payable: false,
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+		],
+		name: "price1CumulativeLast",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		payable: false,
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: "address",
+				name: "to",
+				type: "address"
+			}
+		],
+		name: "skim",
+		outputs: [
+		],
+		payable: false,
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: "uint256",
+				name: "amount0Out",
+				type: "uint256"
+			},
+			{
+				internalType: "uint256",
+				name: "amount1Out",
+				type: "uint256"
+			},
+			{
+				internalType: "address",
+				name: "to",
+				type: "address"
+			},
+			{
+				internalType: "bytes",
+				name: "data",
+				type: "bytes"
+			}
+		],
+		name: "swap",
+		outputs: [
+		],
+		payable: false,
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+		],
+		name: "symbol",
+		outputs: [
+			{
+				internalType: "string",
+				name: "",
+				type: "string"
+			}
+		],
+		payable: false,
+		stateMutability: "pure",
+		type: "function"
+	},
+	{
+		constant: false,
+		inputs: [
+		],
+		name: "sync",
+		outputs: [
+		],
+		payable: false,
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+		],
+		name: "token0",
+		outputs: [
+			{
+				internalType: "address",
+				name: "",
+				type: "address"
+			}
+		],
+		payable: false,
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+		],
+		name: "token1",
+		outputs: [
+			{
+				internalType: "address",
+				name: "",
+				type: "address"
+			}
+		],
+		payable: false,
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+		],
+		name: "totalSupply",
+		outputs: [
+			{
+				internalType: "uint256",
+				name: "",
+				type: "uint256"
+			}
+		],
+		payable: false,
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: "address",
+				name: "to",
+				type: "address"
+			},
+			{
+				internalType: "uint256",
+				name: "value",
+				type: "uint256"
+			}
+		],
+		name: "transfer",
+		outputs: [
+			{
+				internalType: "bool",
+				name: "",
+				type: "bool"
+			}
+		],
+		payable: false,
+		stateMutability: "nonpayable",
+		type: "function"
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: "address",
+				name: "from",
+				type: "address"
+			},
+			{
+				internalType: "address",
+				name: "to",
+				type: "address"
+			},
+			{
+				internalType: "uint256",
+				name: "value",
+				type: "uint256"
+			}
+		],
+		name: "transferFrom",
+		outputs: [
+			{
+				internalType: "bool",
+				name: "",
+				type: "bool"
+			}
+		],
+		payable: false,
+		stateMutability: "nonpayable",
+		type: "function"
+	}
 ];
 
 var ERC20 = [
-  {
-    constant: true,
-    inputs: [
-    ],
-    name: "decimals",
-    outputs: [
-      {
-        name: "",
-        type: "uint8"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: "",
-        type: "address"
-      }
-    ],
-    name: "balanceOf",
-    outputs: [
-      {
-        name: "",
-        type: "uint256"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  }
+	{
+		constant: true,
+		inputs: [
+		],
+		name: "decimals",
+		outputs: [
+			{
+				name: "",
+				type: "uint8"
+			}
+		],
+		payable: false,
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				name: "",
+				type: "address"
+			}
+		],
+		name: "balanceOf",
+		outputs: [
+			{
+				name: "",
+				type: "uint256"
+			}
+		],
+		payable: false,
+		stateMutability: "view",
+		type: "function"
+	}
 ];
 
 var _TOKEN_DECIMALS_CACHE;
@@ -2255,7 +2255,7 @@ var Fetcher = /*#__PURE__*/function () {
   /**
    * Cannot be constructed.
    */
-  function Fetcher() { }
+  function Fetcher() {}
   /**
    * Fetch information for a given token on the given chain, using the given ethers provider.
    * @param chainId chain of the token
@@ -2288,13 +2288,13 @@ var Fetcher = /*#__PURE__*/function () {
       return Promise.reject(e);
     }
   }
-    /**
-     * Fetches information about a pair and constructs a pair from the given two tokens.
-     * @param tokenA first token
-     * @param tokenB second token
-     * @param provider the provider to use to fetch the data
-     */
-    ;
+  /**
+   * Fetches information about a pair and constructs a pair from the given two tokens.
+   * @param tokenA first token
+   * @param tokenB second token
+   * @param provider the provider to use to fetch the data
+   */
+  ;
 
   Fetcher.fetchPairData = function fetchPairData(tokenA, tokenB, provider) {
     try {
@@ -2303,7 +2303,7 @@ var Fetcher = /*#__PURE__*/function () {
       var address = Pair.getAddress(tokenA, tokenB);
       return Promise.resolve(new Contract(address, IPancakePair, provider).getReserves()).then(function (_ref) {
         var reserves0 = _ref[0],
-          reserves1 = _ref[1];
+            reserves1 = _ref[1];
         var balances = tokenA.sortsBefore(tokenB) ? [reserves0, reserves1] : [reserves1, reserves0];
         return new Pair(new TokenAmount(tokenA, balances[0]), new TokenAmount(tokenB, balances[1]));
       });
